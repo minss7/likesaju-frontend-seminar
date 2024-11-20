@@ -23,8 +23,10 @@ export const FAQSection = () => {
 
   return (
     <SectionLayout>
-      <div className="w-full h-full flex flex-col gap-[80px]">
-        <h3 className="text-left text-4xl nanum-extra-bold">FAQs</h3>
+      <div className="w-full h-full flex flex-col gap-[80px] mobile:gap-[70px]">
+        <h3 className="text-left text-4xl mobile:text-3xl nanum-extra-bold">
+          FAQs
+        </h3>
         <div className="flex flex-col gap-[30px] justify-center">
           {faqAccordionInfo.map((accordion) => (
             <FAQAccordion
@@ -43,9 +45,9 @@ const FAQAccordion = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex flex-col rounded-xl px-[50px] py-10 shadow-2xl w-full gap-5">
+    <div className="flex flex-col rounded-xl px-[50px] py-10 mobile:px-[10px] mobile:py-5 mobile:gap-0 shadow-2xl w-full gap-5">
       <div className="flex justify-between items-center gap-5">
-        <p className="text-xl font-bold truncate">{question}</p>
+        <p className="text-xl mobile:text-sm font-bold truncate">{question}</p>
         <button
           className="rounded-full shadow-lg transition"
           onClick={() => {
@@ -53,7 +55,9 @@ const FAQAccordion = ({ question, answer }) => {
           }}
         >
           <svg
-            className={`transition transform ${isOpen ? '' : '-rotate-90'}`}
+            className={`transition-transform transform ${
+              isOpen ? 'rotate-180' : 'rotate-0'
+            }`}
             xmlns="http://www.w3.org/2000/svg"
             width="51"
             height="51"
@@ -78,7 +82,13 @@ const FAQAccordion = ({ question, answer }) => {
           </svg>
         </button>
       </div>
-      {isOpen && <p className="text-lg w-full text-left">{answer}</p>}
+      <div
+        className={`transition-max-height duration-1000 ease-in-out overflow-hidden ${
+          isOpen ? 'max-h-screen' : 'max-h-0'
+        }`}
+      >
+        <p className="text-lg mobile:text-xs w-full text-left mt-4">{answer}</p>
+      </div>
     </div>
   );
 };
